@@ -1,7 +1,7 @@
 type ArticleProps = {
   id: number;
-  updatedAt: Date;
-  tagList: [];
+  tagList: string[];
+  updatedAt : Date
   description: string;
   body: string;
   title: string;
@@ -25,7 +25,7 @@ const Article: React.FC<ArticleProps> = ({
           <a href="" className="author">
             <p>username</p>
           </a>
-          <span className="date">{updatedAt}</span>
+          <span className="date">{updatedAt.toDateString()}</span>
         </div>
       </div>
       <a href="" className="preview-link">

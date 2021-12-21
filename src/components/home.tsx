@@ -21,7 +21,15 @@ const Home: React.FC = () => {
                 </li>
               </ul>
             </div>
-
+            <Article
+              body="this is a body "
+              description="this is a description "
+              id={12}
+              tagList={["tage1", "tag2"]}
+              updatedAt={new Date}
+              title="thos is a title"
+              key={12} 
+            ></Article>
           </div>
         </div>
       </div>
