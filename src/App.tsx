@@ -1,11 +1,13 @@
 import React, { FC, ReactElement } from "react";
-import Article from "./components/article";
 import Home from "./components/home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
     <div>
-      <Home></Home>
+      <BrowserRouter>
+        <Routes><Route path="/articles" element={<Home />}></Route> </Routes> 
+      </BrowserRouter>
     </div>
   );
 };

@@ -1,6 +1,25 @@
-import Article from "./article";
+import Article, { ArticleProps } from "./article";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+export async function get<T>(path: string): Promise<T> {
+  const { data } = await axios.get(path);
+  return data;
+}
 
 const Home: React.FC = () => {
+  const [articles, setArticles] = useState<ArticleProps[]>([]);
+  const url = "https://api.realworld.io/api/articles";
+
+  const getData = async () => {
+    const results = await get<ArticleProps>(url);
+    setArticles([results]);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  if (!articles) return null;
   return (
     <div className="home-page">
       <div className="banner">
@@ -26,9 +45,9 @@ const Home: React.FC = () => {
               description="this is a description "
               id={12}
               tagList={["tage1", "tag2"]}
-              updatedAt={new Date}
+              updatedAt={new Date()}
               title="thos is a title"
-              key={12} 
+              key={12}
             ></Article>
           </div>
         </div>

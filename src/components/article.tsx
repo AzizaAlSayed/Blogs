@@ -1,11 +1,11 @@
-type ArticleProps = {
+export interface ArticleProps {
   id: number;
   tagList: string[];
-  updatedAt : Date
+  updatedAt: Date;
   description: string;
   body: string;
   title: string;
-};
+}
 
 const Article: React.FC<ArticleProps> = ({
   id,
