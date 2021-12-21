@@ -1,25 +1,11 @@
 import Article, { ArticleProps } from "./article";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
-export async function get<T>(path: string): Promise<T> {
-  const { data } = await axios.get(path);
-  return data;
+export interface Article {
+  ArticleList: ArticleProps[];
 }
+const Home: React.FC<Article> = ({ ArticleList }) => {
+  if (!ArticleList) return null;
 
-const Home: React.FC = () => {
-  const [articles, setArticles] = useState<ArticleProps[]>([]);
-  const url = "https://api.realworld.io/api/articles";
-
-  const getData = async () => {
-    const results = await get<ArticleProps>(url);
-    setArticles([results]);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-  if (!articles) return null;
   return (
     <div className="home-page">
       <div className="banner">
@@ -40,15 +26,17 @@ const Home: React.FC = () => {
                 </li>
               </ul>
             </div>
-            <Article
-              body="this is a body "
-              description="this is a description "
-              id={12}
-              tagList={["tage1", "tag2"]}
-              updatedAt={new Date()}
-              title="thos is a title"
-              key={12}
-            ></Article>
+            {ArticleList.map((article) => (
+              <Article
+                key={article.id}
+                id={article.id}
+                body={article.body}
+                description={article.description}
+                tagList={article.tagList}
+                updatedAt={article.updatedAt}
+                title={article.title}
+              ></Article>
+            ))}
           </div>
         </div>
       </div>
