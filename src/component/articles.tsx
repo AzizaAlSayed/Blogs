@@ -1,7 +1,11 @@
 import React, { Fragment } from "react";
-import Commnets from "./comment";
+import Commnets, { CommentProps } from "./comment";
 
-const Articles: React.FC = () => {
+export interface Article {
+  commentLists: CommentProps[];
+}
+
+const Articles: React.FC<Article> = ({ commentLists }) => {
   return (
     <div className="article-page">
       <div className="banner">

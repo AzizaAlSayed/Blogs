@@ -4,7 +4,7 @@ export interface User {
   username: string;
 }
 
-interface CommentProps {
+export interface CommentProps {
   id: number;
   createdAt: Date;
   updatedAt: Date;
