@@ -5,7 +5,7 @@ export interface Article {
   commentLists: CommentProps[];
 }
 
-const Articles: React.FC<Article> = ({ commentLists }) => {
+const Articles: React.FC = () => {
   return (
     <div className="article-page">
       <div className="banner">
