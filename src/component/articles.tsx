@@ -86,14 +86,16 @@ const Articles: React.FC<Article> = ({ commentLists }) => {
                 <button className="btn btn-sm btn-primary">Post Comment</button>
               </div>
             </form>
-            <Commnets
-              body="this is a body"
-              createdAt={new Date()}
-              updatedAt={new Date()}
-              key={12}
-              id={12}
-              author={{ username: "Lara" }}
-            />
+            {commentLists.map((comment) => (
+              <Commnets
+                body={comment.body}
+                createdAt={comment.createdAt}
+                updatedAt={comment.updatedAt}
+                key={comment.id}
+                id={comment.id}
+                author={comment.author}
+              />
+            ))}
           </div>
         </div>
       </div>
