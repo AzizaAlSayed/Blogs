@@ -5,21 +5,11 @@ import { ArticleProps } from "./components/article";
 import axios from "axios";
 
 const App: React.FC = () => {
-  const [articles, setArticles] = useState<ArticleProps[]>([]);
-
-  useEffect(() => {
-    axios
-      .get<ArticleProps[]>("https://api.realworld.io/api/articles")
-      .then((response) => {
-        setArticles(response.data);
-      });
-  }, []);
-
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/articles" element={<Home ArticleList={articles} />} />
+          <Route path="/articles" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

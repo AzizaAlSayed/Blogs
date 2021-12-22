@@ -1,10 +1,23 @@
+import { useEffect, useState } from "react";
 import Article, { ArticleProps } from "./article";
+import axios from "axios";
 
-export interface Article {
-  ArticleList: ArticleProps[];
+interface ArticlesResponse {
+  articles: ArticleProps[];
 }
-const Home: React.FC<Article> = ({ ArticleList }) => {
-  if (!ArticleList) return null;
+
+const Home: React.FC<{}> = () => {
+  const [articles, setArticles] = useState<ArticleProps[]>([]);
+  console.log(articles);
+  useEffect(() => {
+    axios
+      .get<ArticlesResponse>("https://api.realworld.io/api/articles")
+      .then((response) => {
+        setArticles(response.data.articles);
+      });
+  }, []);
+
+  if (!articles) return null;
 
   return (
     <div className="home-page">
@@ -26,7 +39,7 @@ const Home: React.FC<Article> = ({ ArticleList }) => {
                 </li>
               </ul>
             </div>
-            {ArticleList.map((article) => (
+            {articles.map((article) => (
               <Article
                 key={article.id}
                 id={article.id}

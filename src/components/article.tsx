@@ -25,7 +25,7 @@ const Article: React.FC<ArticleProps> = ({
           <a href="" className="author">
             <p>username</p>
           </a>
-          <span className="date">{updatedAt.toDateString()}</span>
+          <span className="date">{updatedAt}</span>
         </div>
       </div>
       <a href="" className="preview-link">
