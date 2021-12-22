@@ -1,6 +1,17 @@
 import React, { FC } from "react";
 
-const NewArticle: React.FC = () => {
+interface Tag {
+  tage: string;
+}
+
+interface NewArticleProps {
+  title: string;
+  description: string;
+  body: string;
+  tagList: Tag[];
+}
+
+const NewArticle: React.FC = ({}) => {
   return (
     <div className="editor-page">
       <div className="container page">
