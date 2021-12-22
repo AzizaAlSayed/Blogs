@@ -1,18 +1,33 @@
 import React, { Fragment } from "react";
 
-const Commnets: React.FC = () => {
+export interface User {
+  username: string;
+}
+
+interface CommentProps {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  body: string;
+  author: User;
+}
+
+const Commnets: React.FC<CommentProps> = ({
+  createdAt,
+  updatedAt,
+  body,
+  id,
+  author,
+}) => {
   return (
     <Fragment>
       <div className="article-page">
         <div className="container page">
           <div className="row">
             <div className="col-xs-12 col-md-8 offset-md-2">
-              <div className="card">
+              <div key={id} className="card">
                 <div className="card-block">
-                  <p className="card-text">
-                    With supporting text below as a natural lead-in to
-                    additional content.
-                  </p>
+                  <p className="card-text">{body}</p>
                 </div>
                 <div className="card-footer">
                   <a href="" className="comment-author">
@@ -23,34 +38,10 @@ const Commnets: React.FC = () => {
                   </a>
                   &nbsp;
                   <a href="" className="comment-author">
-                    Jacob Schmidt
+                    {author.username}{" "}
                   </a>
-                  <span className="date-posted">Dec 29th</span>
-                </div>
-              </div>
-
-              <div className="card">
-                <div className="card-block">
-                  <p className="card-text">
-                    With supporting text below as a natural lead-in to
-                    additional content.
-                  </p>
-                </div>
-                <div className="card-footer">
-                  <a href="" className="comment-author">
-                    <img
-                      src="http://i.imgur.com/Qr71crq.jpg"
-                      className="comment-author-img"
-                    />
-                  </a>
-                  &nbsp;
-                  <a href="" className="comment-author">
-                    Jacob Schmidt
-                  </a>
-                  <span className="date-posted">Dec 29th</span>
-                  <span className="mod-options">
-                    <i className="ion-edit"></i>
-                    <i className="ion-trash-a"></i>
+                  <span className="date-posted">
+                    {updatedAt.toDateString()}
                   </span>
                 </div>
               </div>
