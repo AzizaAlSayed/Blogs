@@ -5,8 +5,12 @@ export interface ArticleProps {
   description: string;
   body: string;
   title: string;
+  author: User;
 }
 
+interface User {
+  username: string;
+}
 const Article: React.FC<ArticleProps> = ({
   id,
   updatedAt,
@@ -14,6 +18,7 @@ const Article: React.FC<ArticleProps> = ({
   description,
   body,
   title,
+  author,
 }) => {
   return (
     <div key={id} className="article-preview">
@@ -23,7 +28,7 @@ const Article: React.FC<ArticleProps> = ({
         </a>
         <div className="info">
           <a href="" className="author">
-            <p>username</p>
+            <p>{author.username}</p>
           </a>
           <span className="date">{updatedAt}</span>
         </div>

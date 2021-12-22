@@ -48,6 +48,7 @@ const Home: React.FC<{}> = () => {
                 tagList={article.tagList}
                 updatedAt={article.updatedAt}
                 title={article.title}
+                author={article.author}
               ></Article>
             ))}
           </div>
