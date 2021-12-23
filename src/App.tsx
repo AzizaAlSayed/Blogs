@@ -1,7 +1,5 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import axios from "axios";
-import Articles from "./component/articles";
+import Articles from "./components/ArticlePage/articles";
 
 const App: React.FC = () => {
   return (

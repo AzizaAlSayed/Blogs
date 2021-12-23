@@ -1,11 +1,24 @@
-import React, { Fragment } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Commnets, { CommentProps } from "./comment";
 
 export interface Article {
-  commentLists: CommentProps[];
+  commentList: CommentProps[];
 }
 
-const Articles: React.FC = () => {
+const Articles: React.FC<{}> = () => {
+  const [commentList, setCommentList] = useState<CommentProps[]>([]);
+
+  useEffect(() => {
+    axios
+      .get<Article>("https://api.realworld.io/api/articles/{slug}/comments")
+      .then((response) => {
+        setCommentList(response.data.commentList);
+      });
+  }, []);
+
+  if (!commentList) return null;
+
   return (
     <div className="article-page">
       <div className="banner">
@@ -86,14 +99,16 @@ const Articles: React.FC = () => {
                 <button className="btn btn-sm btn-primary">Post Comment</button>
               </div>
             </form>
-            <Commnets
-              body="this is a body"
-              createdAt={new Date()}
-              updatedAt={new Date()}
-              key={12}
-              id={12}
-              author={{ username: "Lara" }}
-            />
+            {commentList.map((comment) => (
+              <Commnets
+                body={comment.body}
+                createdAt={comment.createdAt}
+                updatedAt={comment.updatedAt}
+                key={comment.id}
+                id={comment.id}
+                author={comment.author}
+              />
+            ))}
           </div>
         </div>
       </div>
