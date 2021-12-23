@@ -1,26 +1,11 @@
-import Commnets, { CommentProps } from "./comment";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ArticleProps } from "../HomePage/article";
-
-export interface Article {
-  commentList: ArticleProps[];
-}
+import { useParams } from "react-router-dom";
 
 const Articles: React.FC<{}> = () => {
-  const [commentList, setCommentList] = useState<ArticleProps[]>([]);
-console.log(commentList)
-  useEffect(() => {
-    axios
-      .get<Article>(
-        `https://api.realworld.io/api/articles/Create-a-new-implementation-1`
-      )
-      .then((response) => {
-        console.log(response)
-      });
-  }, []);
-
-  if (!commentList) return null;
+  const params = useParams();
+  const url = `https://api.realworld.io/api/articles/${params.slug}`;
 
   return (
     <div className="article-page">
@@ -32,9 +17,7 @@ console.log(commentList)
               <img src="http://i.imgur.com/Qr71crq.jpg" />
             </a>
             <div className="info">
-              <a href="" className="author">
-                Eric Simons
-              </a>
+              <a href="" className="author"></a>
               <span className="date">January 20th</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
@@ -81,27 +64,6 @@ console.log(commentList)
               <i className="ion-heart"></i>
               &nbsp; Favorite Post <span className="counter">(29)</span>
             </button>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12 col-md-8 offset-md-2">
-            <form className="card comment-form">
-              <div className="card-block">
-                <textarea
-                  className="form-control"
-                  placeholder="Write a comment..."
-                  rows={3}
-                ></textarea>
-              </div>
-              <div className="card-footer">
-                <img
-                  src="http://i.imgur.com/Qr71crq.jpg"
-                  className="comment-author-img"
-                />
-                <button className="btn btn-sm btn-primary">Post Comment</button>
-              </div>
-            </form>
           </div>
         </div>
       </div>

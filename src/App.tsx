@@ -6,7 +6,7 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route
-        path="/articles/Create-a-new-implementation-1"
+        path="/articles/:slug"
         element={<Articles />}
       />
       <Route path="/articles" element={<Home />} />

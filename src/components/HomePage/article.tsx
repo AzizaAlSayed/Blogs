@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export interface ArticleProps {
   id: number;
   tagList: string[];
-  updatedAt: Date;
+  updatedAt: string;
   description: string;
   body: string;
   title: string;
@@ -38,7 +38,7 @@ const Article: React.FC<ArticleProps> = ({
         </div>
       </div>
       <a className="preview-link">
-        <Link to="/Create-a-new-implementation-1">
+        <Link to={`./${slug}`}>
           <h1>{title}</h1>
         </Link>
         <p>{description}</p>
