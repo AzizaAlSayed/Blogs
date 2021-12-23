@@ -14,15 +14,13 @@ interface NewArticleProps {
 }
 
 const NewArticle: React.FC = ({}) => {
-  const [newArticle, setNewArticle] = useState<NewArticleProps>();
   const { register, handleSubmit, reset } = useForm<NewArticleProps>({});
 
   const onSubmit = (data: NewArticleProps) => {
     axios
-      .post("https://api.realworld.io/api/articles", newArticle)
+      .post("https://api.realworld.io/api/articles", data)
       .then((response) => {
-        setNewArticle(response.data.newArticle);
-        console.log(JSON.stringify(data, null, 2));
+        console.log(JSON.stringify(response.data, null, 2));
       });
   };
 
@@ -31,7 +29,7 @@ const NewArticle: React.FC = ({}) => {
       <div className="container page">
         <div className="row">
           <div className="col-md-10 offset-md-1 col-xs-12">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <fieldset>
                 <fieldset className="form-group">
                   <input
