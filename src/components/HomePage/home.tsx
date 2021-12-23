@@ -8,7 +8,6 @@ interface ArticlesResponse {
 
 const Home: React.FC<{}> = () => {
   const [articles, setArticles] = useState<ArticleProps[]>([]);
-  console.log(articles);
   useEffect(() => {
     axios
       .get<ArticlesResponse>("https://api.realworld.io/api/articles")
