@@ -8,7 +8,6 @@ interface ArticlesResponse {
 
 const Home: React.FC<{}> = () => {
   const [articles, setArticles] = useState<ArticleProps[]>([]);
-  console.log(articles);
   useEffect(() => {
     axios
       .get<ArticlesResponse>("https://api.realworld.io/api/articles")
@@ -49,6 +48,7 @@ const Home: React.FC<{}> = () => {
                 updatedAt={article.updatedAt}
                 title={article.title}
                 author={article.author}
+                slug={article.slug}
               ></Article>
             ))}
           </div>

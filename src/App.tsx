@@ -4,12 +4,13 @@ import Home from "./components/HomePage/home";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/articles/{slug}/comments" element={<Articles />} />
-        <Route path="/articles" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path="/articles/Create-a-new-implementation-1"
+        element={<Articles />}
+      />
+      <Route path="/articles" element={<Home />} />
+    </Routes>
   );
 };
 
