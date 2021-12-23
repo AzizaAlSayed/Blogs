@@ -5,26 +5,11 @@ import { CommentProps } from "./component/comment";
 import axios from "axios";
 
 const App: React.FC = () => {
-  const [comments, setComments] = useState<CommentProps[]>([]);
-
-  useEffect(() => {
-    axios
-      .get<CommentProps[]>(
-        "https://api.realworld.io/api/articles/{slug}/comments"
-      )
-      .then((response) => {
-        setComments(response.data);
-      });
-  }, []);
-
   return (
     <Fragment>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/aticles/{slug}/comments"
-            element={<Articles commentLists={comments} />}
-          />
+          <Route path="/articles/{slug}/comments" element={<Articles />} />
         </Routes>
       </BrowserRouter>
     </Fragment>
