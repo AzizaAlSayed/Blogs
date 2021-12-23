@@ -70,12 +70,7 @@ const NewArticle: React.FC = ({}) => {
                 </fieldset>
                 <button
                   className="btn btn-lg pull-xs-right btn-primary"
-                  type="button"
-                  onClick={() => {
-                    handleSubmit(onSubmit);
-                    reset();
-                  }}
-                >
+                  type="submit" >
                   Publish Article
                 </button>
               </fieldset>

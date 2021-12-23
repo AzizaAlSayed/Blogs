@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NewArticle from "./components/newArticle";
+import NewArticle from "./components/Article/newArticle";
 
 const App: React.FC = () => {
   return (
