@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import Article, { ArticleProps } from "../HomePage/article";
-import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const Profile: React.FC<{}> = () => {
+  const params = useParams();
+  const url = `https://api.realworld.io/api/profiles/${params.username}`;
   return (
     <div className="ng-scope">
       <div className="profile-page ng-scope">

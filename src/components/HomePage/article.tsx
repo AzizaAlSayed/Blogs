@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export interface ArticleProps {
   id: number;
   tagList: string[];
@@ -23,12 +25,16 @@ const Article: React.FC<ArticleProps> = ({
   return (
     <div key={id} className="article-preview">
       <div className="article-meta">
-        <a href="profile.html">
-          <img src="http://i.imgur.com/Qr71crq.jpg" />
+        <a href="">
+          <Link to={`/profiles/${author.username}`}>
+            <img src="http://i.imgur.com/Qr71crq.jpg" />
+          </Link>
         </a>
         <div className="info">
           <a href="" className="author">
-            <p>{author.username}</p>
+          <Link to={`/profiles/${author.username}`}>
+          <p>{author.username}</p>
+          </Link>
           </a>
           <span className="date">{updatedAt}</span>
         </div>
