@@ -16,7 +16,7 @@ const Profile: React.FC<{}> = () => {
                   src="https://api.realworld.io/images/demo-avatar.png"
                 />
                 <h4 ng-bind="::$ctrl.profile.username" className="ng-binding">
-                  Gerome
+                  {params.username}
                 </h4>
                 <button
                   className="btn btn-sm action-btn ng-binding btn-outline-secondary"
@@ -49,6 +49,7 @@ const Profile: React.FC<{}> = () => {
                   </li>
                 </ul>
               </div>
+              
             </div>
           </div>
         </div>
