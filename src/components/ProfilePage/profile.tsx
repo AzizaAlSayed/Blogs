@@ -26,7 +26,7 @@ const Profile: React.FC<{}> = () => {
                   ng-click="$ctrl.submit()"
                 >
                   <i className="ion-plus-round"></i>
-                  &nbsp; Follow Gerome
+                  &nbsp; Follow {params.username}
                 </button>
               </div>
             </div>
@@ -49,7 +49,6 @@ const Profile: React.FC<{}> = () => {
                   </li>
                 </ul>
               </div>
-              
             </div>
           </div>
         </div>
