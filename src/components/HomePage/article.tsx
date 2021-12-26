@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 export interface ArticleProps {
   id: number;
   tagList: string[];
-  updatedAt: Date;
+  updatedAt: string;
   description: string;
   body: string;
   title: string;
   author: User;
+  slug: string;
 }
-
 interface User {
   username: string;
 }
@@ -19,11 +20,12 @@ const Article: React.FC<ArticleProps> = ({
   body,
   title,
   author,
+  slug,
 }) => {
   return (
     <div key={id} className="article-preview">
       <div className="article-meta">
-        <a href="profile.html">
+        <a href="">
           <img src="http://i.imgur.com/Qr71crq.jpg" />
         </a>
         <div className="info">
@@ -34,7 +36,9 @@ const Article: React.FC<ArticleProps> = ({
         </div>
       </div>
       <a href="" className="preview-link">
-        <h1>{title}</h1>
+        <Link to={`./${slug}`}>
+          <h1>{title}</h1>
+        </Link>
         <p>{description}</p>
         <span>{body}</span>
       </a>

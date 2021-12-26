@@ -26,6 +26,7 @@ const Home: React.FC<{}> = () => {
           <p>A place to share your knowledge.</p>
         </div>
       </div>
+      
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
@@ -48,6 +49,7 @@ const Home: React.FC<{}> = () => {
                 updatedAt={article.updatedAt}
                 title={article.title}
                 author={article.author}
+                slug={article.slug}
               ></Article>
             ))}
           </div>
