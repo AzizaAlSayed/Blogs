@@ -1,9 +1,7 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
 import Home from "./components/HomePage/home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ArticleProps } from "./components/HomePage/article";
-import axios from "axios";
-import Login from "./components/Login/login";
+import Login from "./components/login/login";
+import SignUp from "./components/login/singup";
 
 const App: React.FC = () => {
   return (
@@ -12,6 +10,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/articles" element={<Home />} />
           <Route path="/users/login" element={<Login />} />
+          <Route path="/users/login/f" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </div>

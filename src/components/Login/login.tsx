@@ -1,25 +1,81 @@
+import axios, { AxiosRequestConfig } from "axios";
+import { setDefaultResultOrder } from "dns";
+import React, { useState } from "react";
+
+interface Credentials {
+  email: string;
+  password: string;
+}
+
+const initialCredentials = {
+  email: "",
+  password: "",
+};
+
 const Login: React.FC<{}> = () => {
+  const [error, setError] = useState("");
+  const [credentials, setCredentials] =
+    useState<Credentials>(initialCredentials);
+  const login = async (event: React.FocusEvent) => {
+    event.preventDefault();
+    const response = await onLogin(credentials);
+    if (response && response.error) {
+      setError(response.error);
+    }
+  };
+
+  const onLogin = async (data: Credentials) => {
+    const requestConfig: AxiosRequestConfig = {
+      method: "post",
+      url: "https://api.realworld.io/api/users/login",
+      data,
+    };
+    try {
+      const { data: response } = await axios.request(requestConfig);
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+      return { error: error.response.data.message };
+    }
+  };
+
   return (
     <div className="auth-page">
       <div className="container page">
         <div className="row">
-          <div className="col-md-6 offset-md-3 col-xs-12">
+          <div className="col-md-6 offset-md-3) col-xs-12">
             <h1 className="text-xs-center">Sign in</h1>
-            <form method="post">
+            <form onSubmit={() => login}>
               <fieldset className="form-group">
+                <label htmlFor="email"></label>
                 <input
                   className="form-control form-control-lg"
-                  type="text"
-                  placeholder="Email"
+                  type="email"
+                  placeholder="email"
                   name="email"
+                  value={credentials.email}
+                  onChange={(event) =>
+                    setCredentials({
+                      email: event.target.value,
+                      password: credentials.password,
+                    })
+                  }
                 />
               </fieldset>
               <fieldset className="form-group">
+                <label htmlFor="password"></label>
                 <input
                   className="form-control form-control-lg"
                   type="password"
                   placeholder="Password"
                   name="password"
+                  value={credentials.password}
+                  onChange={(event) =>
+                    setCredentials({
+                      email: credentials.email,
+                      password: event.target.value,
+                    })
+                  }
                 />
               </fieldset>
               <button
@@ -28,6 +84,7 @@ const Login: React.FC<{}> = () => {
               >
                 Sign in
               </button>
+              {error.length > 0 && <p>error</p>}
             </form>
           </div>
         </div>

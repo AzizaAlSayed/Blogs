@@ -11,11 +11,17 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "axios": "^0.24.0",
+    "formik-antd": "^2.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^6.14.1",
+    "react-hooks-form": "^2.0.1",
+    "react-hooks-forms": "^0.8.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "tslint-react-hooks": "^2.2.2",
     "typescript": "^4.5.4",
+    "use-form": "^2.0.3",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
