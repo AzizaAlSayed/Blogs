@@ -14,6 +14,7 @@ interface User {
   bio: string;
   image: string;
 }
+
 const initialCredentials = {
   email: "",
   password: "",
@@ -23,7 +24,7 @@ const Login: React.FC<{}> = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
-  const login = async (event: React.FocusEvent) => {
+  const login: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const response = await onLogin(credentials);
     if (response && response.error) {
@@ -35,13 +36,11 @@ const Login: React.FC<{}> = () => {
     const requestConfig: AxiosRequestConfig = {
       method: "post",
       url: "https://api.realworld.io/api/users/login",
-      data,
+      data: { user: data },
     };
     try {
       const { data: response } = await axios.request<User>(requestConfig);
-      console.log(response.email)
     } catch (error: any) {
-      console.log(error);
       return { error: error.response.data.message };
     }
   };
@@ -50,9 +49,9 @@ const Login: React.FC<{}> = () => {
     <div className="auth-page">
       <div className="container page">
         <div className="row">
-          <div className="col-md-6 offset-md-3) col-xs-12">
+          <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign in</h1>
-            <form onSubmit={() => login}>
+            <form onSubmit={login}>
               <fieldset className="form-group">
                 <label htmlFor="email"></label>
                 <input
