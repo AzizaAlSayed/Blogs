@@ -6,7 +6,15 @@ interface Credentials {
   email: string;
   password: string;
 }
-const SignUp: React.FC<{}> = () => {
+
+interface User {
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string;
+}
+const SignIn: React.FC<{}> = () => {
   const {
     register,
     handleSubmit,
@@ -16,12 +24,19 @@ const SignUp: React.FC<{}> = () => {
 
   const onLogin = (data: Credentials) => {
     axios
-      .post("https://api.realworld.io/api/users/login", data)
+      .post<Credentials>("https://api.realworld.io/api/users/login", data)
       .then((response) => {
         console.log(JSON.stringify(response.data, null, 2));
+        return response.data;
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data + error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
       });
   };
 
@@ -33,7 +48,6 @@ const SignUp: React.FC<{}> = () => {
             <h1 className="text-xs-center">Sign in</h1>
             <form onSubmit={handleSubmit(onLogin)}>
               <fieldset className="form-group">
-                <label htmlFor="email"></label>
                 <input
                   className="form-control form-control-lg"
                   type="email"
@@ -43,7 +57,6 @@ const SignUp: React.FC<{}> = () => {
                 />
               </fieldset>
               <fieldset className="form-group">
-                <label htmlFor="password"></label>
                 <input
                   className="form-control form-control-lg"
                   type="password"
@@ -70,4 +83,4 @@ const SignUp: React.FC<{}> = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

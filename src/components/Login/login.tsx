@@ -7,6 +7,13 @@ interface Credentials {
   password: string;
 }
 
+interface User {
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string;
+}
 const initialCredentials = {
   email: "",
   password: "",
@@ -31,8 +38,8 @@ const Login: React.FC<{}> = () => {
       data,
     };
     try {
-      const { data: response } = await axios.request(requestConfig);
-      console.log(response);
+      const { data: response } = await axios.request<User>(requestConfig);
+      console.log(response.email)
     } catch (error: any) {
       console.log(error);
       return { error: error.response.data.message };
