@@ -24,7 +24,7 @@ const SignIn: React.FC<{}> = () => {
 
   const onLogin = (data: Credentials) => {
     axios
-      .post<Credentials>("https://api.realworld.io/api/users/login", data)
+      .post<User>("https://api.realworld.io/api/users/login", data)
       .then((response) => {
         console.log(JSON.stringify(response.data, null, 2));
         return response.data;
