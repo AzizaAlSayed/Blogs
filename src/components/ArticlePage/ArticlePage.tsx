@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Commnets, { CommentProps } from "./comment";
+import { ArticleProps } from "../HomePage/Article";
 
-interface CommentsResponse {
-  comments: CommentProps[];
+interface ArticleResult {
+  article: ArticleProps;
 }
 
 const Articles: React.FC<{}> = () => {
+  const [article, setArticle] = useState<ArticleProps>();
   const params = useParams();
-  const url = `https://api.realworld.io/api/articles/${params.slug}/comments`;
-  const [comments, setComments] = useState<CommentProps[]>([]);
 
   useEffect(() => {
-    axios.get<CommentsResponse>(url).then((response) => {
-      setComments(response.data.comments);
+    const url = `https://api.realworld.io/api/articles/${params.slug}`;
+    axios.get<ArticleResult>(url).then((response) => {
+      setArticle(response.data.article);
+      console.log(response)
+
     });
   }, []);
 
-  if (!comments) return null;
+  if (!article) return null;
 
   return (
     <div className="article-page">
@@ -26,16 +28,17 @@ const Articles: React.FC<{}> = () => {
         <div className="container">
           <h1>How to build webapps that scale</h1>
           <div className="article-meta">
-            <a href="">
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
+            <a>
+              <img src={article.author.img} />
             </a>
             <div className="info">
-              <a href="" className="author"></a>
-              <span className="date">January 20th</span>
+              <a className="author">{article.author.username}</a>
+              <span className="date">{article.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons <span className="counter">(10)</span>
+              &nbsp; Follow {article.author.username}
+              <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button className="btn btn-sm btn-outline-primary">
@@ -59,34 +62,22 @@ const Articles: React.FC<{}> = () => {
         <hr />
         <div className="article-actions">
           <div className="article-meta">
-            <a href="profile.html">
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
+            <a>
+              <img src={article.author.img} />
             </a>
             <div className="info">
-              <a href="" className="author">
-                Eric Simons
-              </a>
-              <span className="date">January 20th</span>
+              <a className="author">{article.author.username}</a>
+              <span className="date">{article.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons
+              &nbsp; Follow {article.author.username}
             </button>
             &nbsp;
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart"></i>
               &nbsp; Favorite Post <span className="counter">(29)</span>
             </button>
-            {comments.map((comment) => (
-              <Commnets
-                key={comment.id}
-                id={comment.id}
-                body={comment.body}
-                updatedAt={comment.updatedAt}
-                author={comment.author}
-                createdAt={comment.createdAt}
-              ></Commnets>
-            ))}
           </div>
         </div>
       </div>

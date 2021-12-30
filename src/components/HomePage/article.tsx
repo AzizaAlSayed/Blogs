@@ -11,6 +11,7 @@ export interface ArticleProps {
 }
 interface User {
   username: string;
+  img : string
 }
 const Article: React.FC<ArticleProps> = ({
   id,
