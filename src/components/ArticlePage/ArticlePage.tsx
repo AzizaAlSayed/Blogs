@@ -7,7 +7,7 @@ interface ArticleResult {
   article: ArticleProps;
 }
 
-const Articles: React.FC<{}> = () => {
+const ArticlePage: React.FC<{}> = () => {
   const [article, setArticle] = useState<ArticleProps>();
   const params = useParams();
 
@@ -15,8 +15,6 @@ const Articles: React.FC<{}> = () => {
     const url = `https://api.realworld.io/api/articles/${params.slug}`;
     axios.get<ArticleResult>(url).then((response) => {
       setArticle(response.data.article);
-      console.log(response)
-
     });
   }, []);
 
@@ -85,4 +83,4 @@ const Articles: React.FC<{}> = () => {
   );
 };
 
-export default Articles;
+export default ArticlePage;
