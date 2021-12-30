@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Article, { ArticleProps } from "./article";
 import axios from "axios";
 
-interface ArticlesResponse {
+export interface ArticlesResponse {
   articles: ArticleProps[];
 }
 

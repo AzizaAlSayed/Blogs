@@ -41,6 +41,8 @@ const Login: React.FC<{}> = () => {
     try {
       const { data: response } = await axios.request<User>(requestConfig);
     } catch (error: any) {
+      setError(error.response);
+
       return { error: error.response.data.message };
     }
   };
@@ -90,7 +92,11 @@ const Login: React.FC<{}> = () => {
               >
                 Sign in
               </button>
-              {error.length > 0 && <p>error</p>}
+              {error && (
+                <p className="error-messages">
+                  Username or password is invalid
+                </p>
+              )}
             </form>
           </div>
         </div>
