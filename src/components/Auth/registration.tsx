@@ -17,10 +17,6 @@ interface User {
   password: string;
 }
 
-interface CredentialsProps {
-  credential: User;
-}
-
 const initialCredentials = {
   email: "",
   password: "",
@@ -28,18 +24,17 @@ const initialCredentials = {
 };
 
 const SignUp: React.FC = () => {
+  const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Credentials>({});
+  const { register, handleSubmit, reset } = useForm<Credentials>({});
 
   const onSiginUp: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const response = await onSiginup(credentials);
+    if (response && response.error) {
+      setError(response.error);
+    }
   };
   const onSiginup = async (data: Credentials) => {
     const requestConfig: AxiosRequestConfig = {
@@ -52,6 +47,7 @@ const SignUp: React.FC = () => {
     } catch (error: any) {
       return { error: error.response.data.message };
     }
+    setCredentials(initialCredentials);
   };
 
   return (
@@ -78,11 +74,6 @@ const SignUp: React.FC = () => {
                     })
                   }
                 />
-                {errors.username && (
-                  <p className="error-messages">
-                    {errors.username}
-                  </p>
-                )}
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="email"></label>
@@ -101,9 +92,6 @@ const SignUp: React.FC = () => {
                     })
                   }
                 />
-                {errors.email && (
-                  <p className="error-messages">{errors.email}</p>
-                )}
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="password"></label>
