@@ -12,9 +12,11 @@ const Articles: React.FC<{}> = () => {
   const params = useParams();
 
   useEffect(() => {
-    const url = `https://api.realworld.io/api/articles/ ${params}`;
+    const url = `https://api.realworld.io/api/articles/${params.slug}`;
     axios.get<ArticleResult>(url).then((response) => {
       setArticle(response.data.article);
+      console.log(response)
+
     });
   }, []);
 
@@ -27,15 +29,16 @@ const Articles: React.FC<{}> = () => {
           <h1>How to build webapps that scale</h1>
           <div className="article-meta">
             <a>
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
+              <img src={article.author.img} />
             </a>
             <div className="info">
               <a className="author">{article.author.username}</a>
-              <span className="date">January 20th</span>
+              <span className="date">{article.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons <span className="counter">(10)</span>
+              &nbsp; Follow {article.author.username}
+              <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button className="btn btn-sm btn-outline-primary">
@@ -60,15 +63,15 @@ const Articles: React.FC<{}> = () => {
         <div className="article-actions">
           <div className="article-meta">
             <a>
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
+              <img src={article.author.img} />
             </a>
             <div className="info">
-              <a className="author">Eric Simons</a>
-              <span className="date">January 20th</span>
+              <a className="author">{article.author.username}</a>
+              <span className="date">{article.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons
+              &nbsp; Follow {article.author.username}
             </button>
             &nbsp;
             <button className="btn btn-sm btn-outline-primary">
