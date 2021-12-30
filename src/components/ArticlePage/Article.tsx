@@ -1,11 +1,24 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { ArticleProps } from "../HomePage/article";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ArticleProps } from "../HomePage/Article";
+
+interface ArticleResult {
+  article: ArticleProps;
+}
 
 const Articles: React.FC<{}> = () => {
+  const [article, setArticle] = useState<ArticleProps>();
   const params = useParams();
-  const url = `https://api.realworld.io/api/articles/${params.slug}`;
+
+  useEffect(() => {
+    const url = `https://api.realworld.io/api/articles/ ${params}`;
+    axios.get<ArticleResult>(url).then((response) => {
+      setArticle(response.data.article);
+    });
+  }, []);
+
+  if (!article) return null;
 
   return (
     <div className="article-page">
@@ -13,11 +26,11 @@ const Articles: React.FC<{}> = () => {
         <div className="container">
           <h1>How to build webapps that scale</h1>
           <div className="article-meta">
-            <a href="">
+            <a>
               <img src="http://i.imgur.com/Qr71crq.jpg" />
             </a>
             <div className="info">
-              <a href="" className="author"></a>
+              <a className="author">{article.author.username}</a>
               <span className="date">January 20th</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
@@ -46,13 +59,11 @@ const Articles: React.FC<{}> = () => {
         <hr />
         <div className="article-actions">
           <div className="article-meta">
-            <a href="profile.html">
+            <a>
               <img src="http://i.imgur.com/Qr71crq.jpg" />
             </a>
             <div className="info">
-              <a href="" className="author">
-                Eric Simons
-              </a>
+              <a className="author">Eric Simons</a>
               <span className="date">January 20th</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Articles from "./components/ArticlePage/articles";
-import Home from "./components/HomePage/home";
+import Articles from "./components/ArticlePage/Article";
+import Home from "./components/HomePage/Home";
 
 
 const App: React.FC = () => {
