@@ -24,6 +24,7 @@ const Login: React.FC<{}> = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
+
   const login: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const response = await onLogin(credentials);
@@ -42,7 +43,6 @@ const Login: React.FC<{}> = () => {
       const { data: response } = await axios.request<User>(requestConfig);
     } catch (error: any) {
       setError(error.response);
-
       return { error: error.response.data.message };
     }
   };
