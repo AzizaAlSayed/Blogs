@@ -61,6 +61,7 @@ const Login: React.FC<{}> = () => {
                   type="email"
                   placeholder="email"
                   name="email"
+                  required
                   value={credentials.email}
                   onChange={(event) =>
                     setCredentials({
@@ -77,6 +78,7 @@ const Login: React.FC<{}> = () => {
                   type="password"
                   placeholder="Password"
                   name="password"
+                  required
                   value={credentials.password}
                   onChange={(event) =>
                     setCredentials({
