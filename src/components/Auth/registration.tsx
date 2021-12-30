@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 interface Credentials {
   email: string;
@@ -15,7 +15,6 @@ interface User {
   bio: string;
   image: string;
   password: string;
-
 }
 
 interface CredentialsProps {
@@ -38,46 +37,73 @@ const SignUp: React.FC = () => {
     formState: { errors },
   } = useForm<Credentials>({});
 
-  const onSiginUp = (data: Credentials) => {
-    axios
-      .post<CredentialsProps>("https://api.realworld.io/api/users", data)
-      .then((response) => {
-        console.log(JSON.stringify(response.data, null, 2));
-        setCredentials(response.data.credential);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data + error.response.status);
-        } else {
-          console.log("Error", error.message);
-        }
-      });
+  const onSiginUp: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    const response = await onSiginup(credentials);
+  };
+  const onSiginup = async (data: Credentials) => {
+    const requestConfig: AxiosRequestConfig = {
+      method: "post",
+      url: "https://api.realworld.io/api/users",
+      data: { user: data },
+    };
+    try {
+      const { data: response } = await axios.request<User>(requestConfig);
+    } catch (error: any) {
+      return { error: error.response.data.message };
+    }
   };
 
   return (
     <div className="auth-page">
       <div className="container page">
         <div className="row">
-          <div className="col-md-6 offset-md-3) col-xs-12">
+          <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign up</h1>
-            <form onSubmit={handleSubmit(onSiginUp)}>
+            <form onSubmit={onSiginUp}>
               <fieldset className="form-group">
+                <label htmlFor="usename"></label>
                 <input
                   className="form-control form-control-lg"
                   type="text"
                   placeholder="username"
                   name="username"
-                  {...register("username")}
+                  required
+                  value={credentials.username}
+                  onChange={(event) =>
+                    setCredentials({
+                      username: event.target.value,
+                      email: credentials.email,
+                      password: credentials.password,
+                    })
+                  }
                 />
+                {errors.username && (
+                  <p className="error-messages">
+                    {errors.username}
+                  </p>
+                )}
               </fieldset>
               <fieldset className="form-group">
+                <label htmlFor="email"></label>
                 <input
                   className="form-control form-control-lg"
                   type="email"
                   placeholder="email"
                   name="email"
-                  {...register("email")}
+                  required
+                  value={credentials.email}
+                  onChange={(event) =>
+                    setCredentials({
+                      username: credentials.username,
+                      email: event.target.value,
+                      password: credentials.password,
+                    })
+                  }
                 />
+                {errors.email && (
+                  <p className="error-messages">{errors.email}</p>
+                )}
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="password"></label>
@@ -86,12 +112,17 @@ const SignUp: React.FC = () => {
                   type="password"
                   placeholder="Password"
                   name="password"
-                  {...register("password")}
+                  required
+                  value={credentials.password}
+                  onChange={(event) =>
+                    setCredentials({
+                      username: credentials.username,
+                      email: credentials.email,
+                      password: event.target.value,
+                    })
+                  }
                 />
               </fieldset>
-              {errors.password && errors.email && errors.username && (
-                <p>This field is required</p>
-              )}
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
                 type="submit"
