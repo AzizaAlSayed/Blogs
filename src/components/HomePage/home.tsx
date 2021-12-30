@@ -50,6 +50,12 @@ const Home: React.FC<{}> = () => {
                 author={article.author}
               ></Article>
             ))}
+            <div className="col-md-3">
+              <div className="sidebar">
+                <p>Popular Tags</p>
+                <div className="tag-list"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
