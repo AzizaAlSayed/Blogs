@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import PasswordStrengthBar from 'react-password-strength-bar';
-
+import PasswordStrengthBar from "react-password-strength-bar";
 
 interface Credentials {
   email: string;
@@ -24,12 +23,11 @@ const initialCredentials = {
   username: "",
 };
 
-
 const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
-
+  const passwordLengthValid: boolean = credentials.password.length >= 6;
   const handleReset = () => {
     setCredentials({ username: "", password: "", email: "" });
   };
@@ -48,11 +46,12 @@ const SignUp: React.FC = () => {
       data: { user: data },
     };
     try {
-      const { data: response } = await axios.request<User>(requestConfig);
+      if (passwordLengthValid) {
+        const { data: response } = await axios.request<User>(requestConfig);
+      }
     } catch (error: any) {
       return { error: error.response.data.message };
     }
-    setCredentials(initialCredentials);
   };
 
   return (
@@ -79,6 +78,11 @@ const SignUp: React.FC = () => {
                     })
                   }
                 />
+                  {!credentials.username && (
+                  <p className="error-messages">
+                    this field is empty
+                  </p>
+                )}
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="email"></label>
@@ -96,7 +100,12 @@ const SignUp: React.FC = () => {
                       password: credentials.password,
                     })
                   }
-                />
+                />  {!credentials.email  && (
+                  <p className="error-messages">
+                    this field is empty
+                  </p>
+                )}
+              
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="password"></label>
@@ -115,12 +124,19 @@ const SignUp: React.FC = () => {
                     })
                   }
                 />
-                <PasswordStrengthBar password={credentials.password}/> 
+                <PasswordStrengthBar
+                  password={credentials.password}
+                  minLength={6}
+                />
+                {!passwordLengthValid && (
+                  <p className="error-messages">
+                    you must put moew powefull password
+                  </p>
+                )}
               </fieldset>
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
                 type="submit"
-                onClick={handleReset}
               >
                 Sign up
               </button>
