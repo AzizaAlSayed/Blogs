@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 export interface ArticleProps {
   id: number;
   tagList: string[];
@@ -9,10 +10,12 @@ export interface ArticleProps {
   author: User;
   slug: string;
 }
-interface User {
+
+export interface User {
   username: string;
-  img : string
+  img: string;
 }
+
 const Article: React.FC<ArticleProps> = ({
   id,
   updatedAt,
@@ -26,28 +29,27 @@ const Article: React.FC<ArticleProps> = ({
   return (
     <div key={id} className="article-preview">
       <div className="article-meta">
-        <a href="">
-          <img src="http://i.imgur.com/Qr71crq.jpg" />
+        <a>
+          <img src={author.img} />
         </a>
         <div className="info">
-          <a href="" className="author">
+          <a className="author">
             <p>{author.username}</p>
           </a>
           <span className="date">{updatedAt}</span>
         </div>
       </div>
-      <a href="" className="preview-link">
-        <Link to={`./${slug}`}>
+      <a className="preview-link">
+        <Link to={`articles/${slug}`}>
           <h1>{title}</h1>
+          <p>{description}</p>
+          <span>{body}</span>
         </Link>
-        <p>{description}</p>
-        <span>{body}</span>
       </a>
-      <div className="col-md-3">
-        <div className="sidebar">
-          <p>Popular Tags</p>
-          <div className="tag-list">{tagList.join(" ")}</div>
-        </div>
+      <div>
+        {tagList.map((tag) => (
+          <a className="tag-pill tag-default">{tag}</a>
+        ))}
       </div>
     </div>
   );

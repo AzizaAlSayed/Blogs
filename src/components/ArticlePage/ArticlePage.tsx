@@ -1,24 +1,26 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ArticleProps } from "../HomePage/Article";
-
-interface ArticleResult {
-  article: ArticleProps;
-}
+import { ArticleProps } from "./Article";
+import Commnets, { CommentProps } from "./Comment";
 
 const Articles: React.FC<{}> = () => {
+  const [comments, setComments] = useState<CommentProps[]>([]);
   const [article, setArticle] = useState<ArticleProps>();
   const params = useParams();
+  const urlSlug = `https://api.realworld.io/api/articles/${params.slug}`;
+  const urlComments = urlSlug + `/comments`;
+  const slugRequest = axios.get(urlSlug);
+  const commentsRequest = axios.get(urlComments);
 
   useEffect(() => {
-    const url = `https://api.realworld.io/api/articles/${params.slug}`;
-    axios.get<ArticleResult>(url).then((response) => {
-      setArticle(response.data.article);
-      console.log(response)
-
-    });
-  }, []);
+    axios.all([slugRequest, commentsRequest]).then(
+      axios.spread((...responses) => {
+        setArticle(responses[0].data.article);
+        setComments(responses[1].data.comments);
+      })
+    );
+  }, [urlSlug, urlComments]);
 
   if (!article) return null;
 
@@ -80,6 +82,16 @@ const Articles: React.FC<{}> = () => {
             </button>
           </div>
         </div>
+        {comments.map((comment) => (
+          <Commnets
+            key={comment.id}
+            id={comment.id}
+            body={comment.body}
+            updatedAt={comment.updatedAt}
+            author={comment.author}
+            createdAt={comment.createdAt}
+          ></Commnets>
+        ))}
       </div>
     </div>
   );

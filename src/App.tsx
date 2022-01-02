@@ -5,7 +5,7 @@ import Home from "./components/HomePage/Home";
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/articles" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/articles/:slug/comments" element={<Articles />} />
     </Routes>
   );

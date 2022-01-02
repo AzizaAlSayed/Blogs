@@ -38,7 +38,7 @@ const Commnets: React.FC<CommentProps> = ({
                   </a>
                   &nbsp;
                   <a href="" className="comment-author">
-                    {author.username}{" "}
+                    {author.username}
                   </a>
                   <span className="date-posted">
                     {updatedAt}
