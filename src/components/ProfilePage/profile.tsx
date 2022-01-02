@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Article, { ArticleProps } from "../HomePage/article";
-import { ArticlesResponse } from "../HomePage/home";
+import Article, { ArticleProps } from "../HomePage/Article";
+import ArticleList from "../HomePage/ArtilceList";
+import { ArticlesResponse } from "../HomePage/Home";
 
 const Profile: React.FC<{}> = () => {
   const params = useParams();
@@ -65,18 +66,7 @@ const Profile: React.FC<{}> = () => {
                   </li>
                 </ul>
               </div>
-              {articles.map((article) => (
-                <Article
-                  key={article.id}
-                  id={article.id}
-                  body={article.body}
-                  description={article.description}
-                  tagList={article.tagList}
-                  updatedAt={article.updatedAt}
-                  title={article.title}
-                  author={article.author}
-                ></Article>
-              ))}
+              <ArticleList username={params.username}></ArticleList>
             </div>
           </div>
         </div>

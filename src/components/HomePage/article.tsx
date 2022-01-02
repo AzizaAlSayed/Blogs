@@ -1,19 +1,21 @@
-import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 export interface ArticleProps {
   id: number;
   tagList: string[];
-  updatedAt: Date;
+  updatedAt: string;
   description: string;
   body: string;
   title: string;
   author: User;
+  slug: string;
 }
 
-interface User {
+export interface User {
   username: string;
+  img: string;
 }
+
 const Article: React.FC<ArticleProps> = ({
   id,
   updatedAt,
@@ -22,37 +24,34 @@ const Article: React.FC<ArticleProps> = ({
   body,
   title,
   author,
+  slug,
 }) => {
   return (
-      <div key={id} className="article-preview">
-        <div className="article-meta">
-          <a href="">
-            <Link to={`/profiles/${author.username}`}>
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
-            </Link>
+    <div key={id} className="article-preview">
+      <div className="article-meta">
+        <a>
+          <img src={author.img} />
+        </a>
+        <div className="info">
+          <a className="author">
+            <p>{author.username}</p>
           </a>
-          <div className="info">
-            <a href="" className="author">
-              <Link to={`/profiles/${author.username}`}>
-                <p>{author.username}</p>
-              </Link>
-            </a>
-            <span className="date">{updatedAt}</span>
-          </div>
+          <span className="date">{updatedAt}</span>
         </div>
-        <a href="" className="preview-link">
+      </div>
+      <a className="preview-link">
+        <Link to={`articles/${slug}`}>
           <h1>{title}</h1>
           <p>{description}</p>
           <span>{body}</span>
-        </a>
-        <div>
-          {tagList.map((tag) => (
-            <a href="" className="tag-pill tag-default">
-              {tag}
-            </a>
-          ))}
-        </div>
+        </Link>
+      </a>
+      <div>
+        {tagList.map((tag) => (
+          <a className="tag-pill tag-default">{tag}</a>
+        ))}
       </div>
+    </div>
   );
 };
 
