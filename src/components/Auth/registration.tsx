@@ -1,6 +1,7 @@
-import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
+import PasswordStrengthBar from 'react-password-strength-bar';
+
 
 interface Credentials {
   email: string;
@@ -23,11 +24,15 @@ const initialCredentials = {
   username: "",
 };
 
+
 const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
-  const { register, handleSubmit, reset } = useForm<Credentials>({});
+
+  const handleReset = () => {
+    setCredentials({ username: "", password: "", email: "" });
+  };
 
   const onSiginUp: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -110,10 +115,12 @@ const SignUp: React.FC = () => {
                     })
                   }
                 />
+                <PasswordStrengthBar password={credentials.password}/> 
               </fieldset>
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
                 type="submit"
+                onClick={handleReset}
               >
                 Sign up
               </button>
