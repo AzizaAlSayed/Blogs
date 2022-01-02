@@ -53,12 +53,9 @@ const Articles: React.FC<{}> = () => {
       <div className="container page">
         <div className="row article-content">
           <div className="col-md-12">
-            <p>
-              Web development technologies have evolved at an incredible clip
-              over the past few years.
-            </p>
-            <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-            <p>It's a great solution for learning how other frameworks work.</p>
+            <p>{article.body}</p>
+            <h2 id="introducing-ionic">{article.title}</h2>
+            <p>{article.description}</p>
           </div>
         </div>
         <hr />
