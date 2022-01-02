@@ -56,7 +56,7 @@ const Login: React.FC<{}> = () => {
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign in</h1>
-            <form onSubmit={login}>
+            <form onSubmit={handleReset} onSubmitCapture={login}>
               <fieldset className="form-group">
                 <label htmlFor="email"></label>
                 <input
@@ -94,7 +94,6 @@ const Login: React.FC<{}> = () => {
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
                 type="submit"
-                onClick={handleReset}
               >
                 Sign in
               </button>
