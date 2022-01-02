@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { setDefaultResultOrder } from "dns";
 import React, { useState } from "react";
 
 interface Credentials {
@@ -24,6 +23,10 @@ const Login: React.FC<{}> = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
+
+  const handleReset = () => {
+    setCredentials({ email: "", password: "" });
+  };
 
   const login: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -91,6 +94,7 @@ const Login: React.FC<{}> = () => {
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
                 type="submit"
+                onClick={handleReset}
               >
                 Sign in
               </button>
