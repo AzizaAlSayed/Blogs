@@ -22,7 +22,7 @@ const Articles: React.FC<{}> = () => {
     );
   }, [urlSlug, urlComments]);
 
-  if (!article) return null;
+  if (!article || !comments) return null;
 
   return (
     <div className="article-page">
