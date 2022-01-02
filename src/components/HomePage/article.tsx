@@ -1,16 +1,21 @@
+import { Link } from "react-router-dom";
+
 export interface ArticleProps {
   id: number;
   tagList: string[];
-  updatedAt: Date;
+  updatedAt: string;
   description: string;
   body: string;
   title: string;
   author: User;
+  slug: string;
 }
 
-interface User {
+export interface User {
   username: string;
+  img: string;
 }
+
 const Article: React.FC<ArticleProps> = ({
   id,
   updatedAt,
@@ -19,30 +24,34 @@ const Article: React.FC<ArticleProps> = ({
   body,
   title,
   author,
+  slug,
 }) => {
   return (
     <div key={id} className="article-preview">
       <div className="article-meta">
-        <a href="profile.html">
-          <img src="http://i.imgur.com/Qr71crq.jpg" />
+        <a>
+          <img src={author.img} />
         </a>
         <div className="info">
-          <a href="" className="author">
+          <a className="author">
+            <Link to={`profiles/${author.username}`}>
             <p>{author.username}</p>
+            </Link>
           </a>
           <span className="date">{updatedAt}</span>
         </div>
       </div>
-      <a href="" className="preview-link">
-        <h1>{title}</h1>
-        <p>{description}</p>
-        <span>{body}</span>
+      <a className="preview-link">
+        <Link to={`articles/${slug}`}>
+          <h1>{title}</h1>
+          <p>{description}</p>
+          <span>{body}</span>
+        </Link>
       </a>
-      <div className="col-md-3">
-        <div className="sidebar">
-          <p>Popular Tags</p>
-          <div className="tag-list">{tagList.join(" ")}</div>
-        </div>
+      <div>
+        {tagList.map((tag) => (
+          <a className="tag-pill tag-default">{tag}</a>
+        ))}
       </div>
     </div>
   );
