@@ -34,7 +34,9 @@ const Article: React.FC<ArticleProps> = ({
         </a>
         <div className="info">
           <a className="author">
+            <Link to={`profiles/${author.username}`}>
             <p>{author.username}</p>
+            </Link>
           </a>
           <span className="date">{updatedAt}</span>
         </div>

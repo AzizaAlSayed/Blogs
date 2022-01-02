@@ -2,24 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Article, { ArticleProps } from "../HomePage/Article";
-import ArticleList from "../HomePage/ArtilceList";
-import { ArticlesResponse } from "../HomePage/Home";
+import ArticleList, { ArticlesResponse } from "../HomePage/ArtilceList";
 
 const Profile: React.FC<{}> = () => {
-  const params = useParams();
-  const [articles, setArticles] = useState<ArticleProps[]>([]);
-
-  useEffect(() => {
-    axios
-      .get<ArticlesResponse>(
-        `https://api.realworld.io/api/articles?author=${params.username}`
-      )
-      .then((response) => {
-        setArticles(response.data.articles);
-      });
-  }, []);
-
-  return (
+    return (
     <div className="ng-scope">
       <div className="profile-page ng-scope">
         <div className="user-info">
@@ -66,7 +52,7 @@ const Profile: React.FC<{}> = () => {
                   </li>
                 </ul>
               </div>
-              <ArticleList username={params.username}></ArticleList>
+              <ArticleList username=""></ArticleList>
             </div>
           </div>
         </div>
