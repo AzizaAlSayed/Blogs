@@ -1,6 +1,8 @@
-import ArticleList, { ArticlesResponse } from "../HomePage/ArtilceList";
+import ArticleList from "../HomePage/ArtilceList";
+import { useParams } from "react-router-dom";
 
 const Profile: React.FC<{}> = () => {
+  const params = useParams();
     return (
     <div className="ng-scope">
       <div className="profile-page ng-scope">
@@ -14,7 +16,7 @@ const Profile: React.FC<{}> = () => {
                   src="https://api.realworld.io/images/demo-avatar.png"
                 />
                 <h4 ng-bind="::$ctrl.profile.username" className="ng-binding">
-              
+                {params.username}
                 </h4>
                 <button
                   className="btn btn-sm action-btn ng-binding btn-outline-secondary"
@@ -24,7 +26,7 @@ const Profile: React.FC<{}> = () => {
                   ng-click="$ctrl.submit()"
                 >
                   <i className="ion-plus-round"></i>
-                  &nbsp; Follow
+                  &nbsp; Follow {params.username}
                 </button>
               </div>
             </div>
