@@ -27,7 +27,7 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
-  const passwordLengthValid: boolean = credentials.password.length >= 6;
+  const passwordLengthValid: boolean = credentials.password.length >= 4;
   const handleReset = () => {
     setCredentials({ username: "", password: "", email: "" });
   };
@@ -60,7 +60,7 @@ const SignUp: React.FC = () => {
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign up</h1>
-            <form onSubmit={onSiginUp}>
+            <form onSubmit={handleReset} onSubmitCapture={onSiginUp}>
               <fieldset className="form-group">
                 <label htmlFor="usename"></label>
                 <input
@@ -126,11 +126,11 @@ const SignUp: React.FC = () => {
                 />
                 <PasswordStrengthBar
                   password={credentials.password}
-                  minLength={6}
+                  minLength={4}
                 />
                 {!passwordLengthValid && (
                   <p className="error-messages">
-                    you must put moew powefull password
+                    you must put more powefull password
                   </p>
                 )}
               </fieldset>
