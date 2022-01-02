@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
+import "../../Style/LoginStyle.css"
 interface Credentials {
   email: string;
   password: string;
@@ -95,7 +96,7 @@ const Login: React.FC<{}> = () => {
                 className="btn btn-lg btn-primary pull-xs-right"
                 type="submit"
               >
-                Sign in
+                <Link to = {"/"} className="Class Signin"> Sign in</Link>
               </button>
               {error && (
                 <p className="error-messages">
