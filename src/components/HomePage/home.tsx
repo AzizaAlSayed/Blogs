@@ -1,23 +1,6 @@
-import { useEffect, useState } from "react";
-import Article, { ArticleProps } from "./article";
-import axios from "axios";
-
-interface ArticlesResponse {
-  articles: ArticleProps[];
-}
+import ArticleList from "./ArtilceList";
 
 const Home: React.FC<{}> = () => {
-  const [articles, setArticles] = useState<ArticleProps[]>([]);
-  useEffect(() => {
-    axios
-      .get<ArticlesResponse>("https://api.realworld.io/api/articles")
-      .then((response) => {
-        setArticles(response.data.articles);
-      });
-  }, []);
-
-  if (!articles) return null;
-
   return (
     <div className="home-page">
       <div className="banner">
@@ -32,24 +15,17 @@ const Home: React.FC<{}> = () => {
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <a className="nav-link active" href="">
-                    Global Feed
-                  </a>
+                  <a className="nav-link active">Global Feed</a>
                 </li>
               </ul>
             </div>
-            {articles.map((article) => (
-              <Article
-                key={article.id}
-                id={article.id}
-                body={article.body}
-                description={article.description}
-                tagList={article.tagList}
-                updatedAt={article.updatedAt}
-                title={article.title}
-                author={article.author}
-              ></Article>
-            ))}
+            <ArticleList username=""></ArticleList>
+            <div className="col-md-3">
+              <div className="sidebar">
+                <p>Popular Tags</p>
+                <div className="tag-list"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
