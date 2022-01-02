@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export interface ArticleProps {
   id: number;
   tagList: string[];
@@ -38,9 +40,11 @@ const Article: React.FC<ArticleProps> = ({
         </div>
       </div>
       <a className="preview-link">
-        <h1>{title}</h1>
-        <p>{description}</p>
-        <span>{body}</span>
+        <Link to={`articles/${slug}`}>
+          <h1>{title}</h1>
+          <p>{description}</p>
+          <span>{body}</span>
+        </Link>
       </a>
       <div>
         {tagList.map((tag) => (
