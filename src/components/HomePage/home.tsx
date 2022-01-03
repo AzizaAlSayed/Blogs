@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Article, { ArticleProps } from "./article";
+import Article, { ArticleProps } from "./Article";
 import axios from "axios";
 
 interface ArticlesResponse {
