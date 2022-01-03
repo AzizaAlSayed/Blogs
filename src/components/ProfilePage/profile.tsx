@@ -20,8 +20,7 @@ const Profile: React.FC<{}> = () => {
                   ng-class="{ 'disabled': $ctrl.isSubmitting,
               'btn-outline-secondary': !$ctrl.user.following,
               'btn-secondary': $ctrl.user.following }"
-                  ng-click="$ctrl.submit()"
-                >
+                  ng-click="$ctrl.submit()" >
                   <i className="ion-plus-round"></i>
                   &nbsp; Follow {params.username}
                 </button>
