@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const Profile: React.FC<{}> = () => {
   const params = useParams();
-    return (
+  return (
     <div className="ng-scope">
       <div className="profile-page ng-scope">
         <div className="user-info">
@@ -11,13 +11,10 @@ const Profile: React.FC<{}> = () => {
             <div className="row">
               <div className="col-xs-12 col-md-10 offset-md-1">
                 <img
-                  ng-src="https://api.realworld.io/images/demo-avatar.png"
-                  className="user-img"
                   src="https://api.realworld.io/images/demo-avatar.png"
+                  className="user-img"
                 />
-                <h4 ng-bind="::$ctrl.profile.username" className="ng-binding">
-                {params.username}
-                </h4>
+                <h4 className="ng-binding">{params.username}</h4>
                 <button
                   className="btn btn-sm action-btn ng-binding btn-outline-secondary"
                   ng-class="{ 'disabled': $ctrl.isSubmitting,
@@ -39,14 +36,10 @@ const Profile: React.FC<{}> = () => {
               <div className="articles-toggle">
                 <ul className="nav nav-pills outline-active">
                   <li className="nav-item">
-                    <a className="nav-link active">
-                      My Articles
-                    </a>
+                    <a className="nav-link active">My Articles</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" >
-                      Favorited Articles
-                    </a>
+                    <a className="nav-link">Favorited Articles</a>
                   </li>
                 </ul>
               </div>
