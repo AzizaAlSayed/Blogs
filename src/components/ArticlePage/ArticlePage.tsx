@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { ArticleProps } from "./Article";
 import Commnets, { CommentProps } from "./Comment";
 
-const Articles: React.FC<{}> = () => {
+const ArticlePage: React.FC<{}> = () => {
   const [comments, setComments] = useState<CommentProps[]>([]);
   const [article, setArticle] = useState<ArticleProps>();
   const params = useParams();
@@ -94,4 +94,4 @@ const Articles: React.FC<{}> = () => {
   );
 };
 
-export default Articles;
+export default ArticlePage;
