@@ -17,6 +17,19 @@ interface User {
   password: string;
 }
 
+interface userResult {
+  user: User;
+}
+
+const intialUser = {
+  email: "",
+  token: "",
+  username: "",
+  bio: "",
+  image: "",
+  password: "",
+};
+
 const initialCredentials = {
   email: "",
   password: "",
@@ -27,6 +40,7 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
+  const [user, setUser] = useState(intialUser);
   const passwordLengthValid: boolean = credentials.password.length >= 4;
   const handleReset = () => {
     setCredentials({ username: "", password: "", email: "" });
@@ -47,9 +61,13 @@ const SignUp: React.FC = () => {
     };
     try {
       if (passwordLengthValid) {
-        const { data: response } = await axios.request<User>(requestConfig);
+        const { data: response } = await axios.request<userResult>(
+          requestConfig
+        );
+        setUser(response.user);
       }
     } catch (error: any) {
+      setError(error.response);
       return { error: error.response.data.message };
     }
   };
@@ -78,11 +96,6 @@ const SignUp: React.FC = () => {
                     })
                   }
                 />
-                  {!credentials.username && (
-                  <p className="error-messages">
-                    this field is empty
-                  </p>
-                )}
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="email"></label>
@@ -100,12 +113,7 @@ const SignUp: React.FC = () => {
                       password: credentials.password,
                     })
                   }
-                />  {!credentials.email  && (
-                  <p className="error-messages">
-                    this field is empty
-                  </p>
-                )}
-              
+                />
               </fieldset>
               <fieldset className="form-group">
                 <label htmlFor="password"></label>
@@ -128,10 +136,8 @@ const SignUp: React.FC = () => {
                   password={credentials.password}
                   minLength={4}
                 />
-                {!passwordLengthValid && (
-                  <p className="error-messages">
-                    you must put more powefull password
-                  </p>
+                {error && (
+                  <p className="error-messages">This user already exist</p>
                 )}
               </fieldset>
               <button
