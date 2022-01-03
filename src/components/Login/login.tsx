@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "../../Style/LoginStyle.css"
+import { useNavigate } from "react-router-dom";
+import "../../Style/LoginStyle.css";
 interface Credentials {
   email: string;
   password: string;
@@ -15,6 +15,18 @@ interface User {
   image: string;
 }
 
+const intialUser = {
+  email: "",
+  token: "",
+  username: "",
+  bio: "",
+  image: "",
+};
+
+interface UserResult {
+  user: User;
+}
+
 const initialCredentials = {
   email: "",
   password: "",
@@ -24,6 +36,7 @@ const Login: React.FC<{}> = () => {
   const [error, setError] = useState("");
   const [credentials, setCredentials] =
     useState<Credentials>(initialCredentials);
+  const [user, setUser] = useState<User>(intialUser);
 
   const handleReset = () => {
     setCredentials({ email: "", password: "" });
@@ -37,6 +50,13 @@ const Login: React.FC<{}> = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (user.token) {
+      navigate("/");
+    }
+  };
+
   const onLogin = async (data: Credentials) => {
     const requestConfig: AxiosRequestConfig = {
       method: "post",
@@ -44,7 +64,8 @@ const Login: React.FC<{}> = () => {
       data: { user: data },
     };
     try {
-      const { data: response } = await axios.request<User>(requestConfig);
+      const { data: response } = await axios.request<UserResult>(requestConfig);
+      setUser(response.user);
     } catch (error: any) {
       setError(error.response);
       return { error: error.response.data.message };
@@ -57,7 +78,7 @@ const Login: React.FC<{}> = () => {
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign in</h1>
-            <form onSubmit={handleReset} onSubmitCapture={login}>
+            <form onSubmit={handleClick} onSubmitCapture={login}>
               <fieldset className="form-group">
                 <label htmlFor="email"></label>
                 <input
@@ -94,9 +115,9 @@ const Login: React.FC<{}> = () => {
               </fieldset>
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
-                type="submit"
+                type="submit" 
               >
-                <Link to = {"/"} className="Class Signin"> Sign in</Link>
+                Sign in
               </button>
               {error && (
                 <p className="error-messages">
