@@ -24,7 +24,7 @@ const ArticlePage: React.FC<{}> = () => {
     <div className="article-page">
       <div className="banner">
         <div className="container">
-          <h1>How to build webapps that scale</h1>
+          <h1>{article.title}</h1>
           <div className="article-meta">
             <a>
               <img src={article.author.img} />
